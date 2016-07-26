@@ -1,0 +1,41 @@
+---
+#Add users task
+
+- name: Add admin group
+  group:
+      name: "{{ admin_group }}"
+      state: present
+      system: yes
+
+- name: Add admin group to sudo
+  template:
+      src: admin_group_passwordless_sudo
+      dest: /etc/sudoers.d/admin_group_passwordless_sudo
+      owner: root
+      group: root
+      mode: 0400
+
+- name: Add admin users
+  user:
+      name: "{{ item }}"
+      state: present
+      shell: /bin/bash
+      groups: "{{ admin_group }}"
+  with_items: admin_accounts
+  when: admin_accounts is defined
+
+- name: Add authorized keys
+  authorized_key:
+      user: "{{ item }}"
+      key: "{{ lookup('file', '../configs/global/users/'+item+'/.ssh/id_rsa.pub') }}"
+      state: present
+  with_items: admin_accounts
+  when: admin_accounts is defined
+
+- name: Add normal users
+  user:
+      name: "{{ item }}"
+      state: present
+      shell: /bin/bash
+  with_items: user_accounts
+  when: user_accounts is defined

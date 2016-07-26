@@ -1,0 +1,8 @@
+# Static lookup table for hostnames.
+
+127.0.0.1   {{ inventory_hostname }} localhost
+::1         {{ inventory_hostname }} ip6-localhost
+
+{% for hostfile_entry in hostfile_entries %}
+{{ hostfile_entry.ip }}     {{ hostfile_entry.name }}
+{% endfor %}

@@ -1,0 +1,37 @@
+---
+# Basic cerver configuration
+
+- name: Set Hostname
+  hostname:
+      name: "{{ inventory_hostname  }}"
+
+- name: Set Hosts base entry
+  template:
+      dest: /etc/hosts
+      src: hosts_file
+      owner: root
+      group: root
+      mode: 0644
+
+- name: Gen locales
+  locale_gen:
+      name: "{{ item }}"
+      state: present
+  with_items: "{{ base_locales }}"
+
+- name: Set locale
+  template:
+      src: default_locale
+      dest: /etc/default/locale
+      mode: 0644
+      owner: root
+      group: root
+
+- name: Set timezone
+  template:
+      src: timezone
+      dest: /etc/timezone
+      owner: root
+      group: root
+      mode: 0644
+  notify: Update timezone data

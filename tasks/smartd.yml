@@ -1,0 +1,25 @@
+---
+#Configure smartd
+
+- name: Install smartmontools
+  apt:
+      name: smartmontools
+      state: latest
+      force: yes
+
+- name: Configure smartd
+  copy:
+      owner: root
+      group: root
+      src: "etc/smartd.conf"
+      dest: "/etc/smartd.conf"
+  notify: Restart smartd
+
+- name: Enable smartd
+  lineinfile:
+      backup: yes
+      dest: "/etc/default/smartmontools"
+      state: present
+      insertafter: EOF
+      line: "start_smartd=yes"
+  notify: Restart smartd

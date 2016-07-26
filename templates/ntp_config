@@ -1,0 +1,23 @@
+# /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
+
+driftfile /var/lib/ntp/ntp.drift
+
+statistics loopstats peerstats clockstats
+filegen loopstats file loopstats type day enable
+filegen peerstats file peerstats type day enable
+filegen clockstats file clockstats type day enable
+
+# by default act only as a basic NTP client
+restrict -4 default nomodify nopeer noquery notrap
+restrict -6 default nomodify nopeer noquery notrap
+
+# Local users may interrogate the ntp server more closely.
+restrict 127.0.0.1
+restrict ::1
+disable monitor
+
+# Specify one or more NTP servers.
+
+{% for server in ntp_servers %}
+server {{ server }} iburst
+{% endfor %}

@@ -1,0 +1,17 @@
+---
+#Setup SSH
+
+- name: Install ssh
+  apt:
+      name: "openssh-server"
+      state: latest
+      force: yes
+
+- name: Configure ssh
+  template:
+      src: "sshd_config"
+      dest: "/etc/ssh/sshd_config"
+      mode: 0644
+      owner: root
+      group: root
+  notify: Restart ssh

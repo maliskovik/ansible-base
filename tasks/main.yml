@@ -1,0 +1,19 @@
+---
+# Base role tasks
+
+- name: Install Requirements
+  apt:
+    name: "{{ item }}"
+    state: latest
+    force: yes
+    update_cache: yes
+  with_items:
+    - git
+    - python-mysqldb
+
+- include: base.yml
+- include: users.yml
+- include: ssh.yml
+- include: ufw.yml
+- include: ntp.yml
+- include: smartd.yml

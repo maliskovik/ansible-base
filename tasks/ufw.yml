@@ -1,0 +1,27 @@
+---
+# Ufw tasks
+- name: Install ufw
+  apt:
+    name: ufw
+    state: latest
+    force: yes
+  notify:
+  - Restart ufw
+
+- name: Allow SSH
+  ufw:
+    port: "{{ ssh_port }}"
+    proto: tcp
+    rule: allow
+
+- name: Set default policy
+  ufw:
+    state: enabled
+    policy: deny
+    direction: incoming
+
+- name: Start ufw
+  service:
+    name: ufw
+    state: started
+    enabled: yes
