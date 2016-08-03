@@ -11,7 +11,7 @@
   copy:
       owner: root
       group: root
-      src: "etc/smartd.conf"
+      src: "smartd.conf"
       dest: "/etc/smartd.conf"
   notify: Restart smartd
 

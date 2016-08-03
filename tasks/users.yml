@@ -21,15 +21,15 @@
       state: present
       shell: /bin/bash
       groups: "{{ admin_group }}"
-  with_items: admin_accounts
+  with_items: "{{ admin_accounts }}"
   when: admin_accounts is defined
 
 - name: Add authorized keys
   authorized_key:
       user: "{{ item }}"
-      key: "{{ lookup('file', '../configs/global/users/'+item+'/.ssh/id_rsa.pub') }}"
+      key: "{{ lookup('file', base_users_dirs+item+'/.ssh/id_rsa.pub') }}"
       state: present
-  with_items: admin_accounts
+  with_items: "{{ admin_accounts }}"
   when: admin_accounts is defined
 
 - name: Add normal users
@@ -37,5 +37,5 @@
       name: "{{ item }}"
       state: present
       shell: /bin/bash
-  with_items: user_accounts
+  with_items: "{{ user_accounts }}"
   when: user_accounts is defined

@@ -1,9 +1,6 @@
 ---
 #Default variables
 admin_group: "sudo"
-admin_accounts:
-  - lovrenca
-  - darh
 
 ntp_servers:
   - ntp1.arnes.si
@@ -13,10 +10,9 @@ admin_mails:
   - "devops@kendu.si"
 
 base_locales:
-  - en_US.UTF-8
-  - sl_SI.UTF-8
+  - "en_US.UTF-8"
 
-default_locale: en_US.UTF-8
+default_locale: "en_US.UTF-8"
 timezone: "Europe/Ljubljana"
 
 ssh_port: 22
