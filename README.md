@@ -59,9 +59,9 @@ ntp_servers:
   - 8.8.4.4
 timezone: "Europe/Berlin"
 hostfile_entries:
-  - ip: "127.0.0.1"
-    name: "example.local"
-ssh_port: "22"
+  - ip: ""
+    name: ""
+ssh_port: "45632"
 ssh_permit_root_login: "no"
 
 ```

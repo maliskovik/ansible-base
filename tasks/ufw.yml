@@ -14,6 +14,14 @@
     proto: tcp
     rule: allow
 
+- name: Allow public ports
+  ufw:
+    port: "{{ item.port }}"
+    proto: "{{ item.proto }}"
+    rule: allow
+  with_items: "{{ ufw_allowed_public_ports }}"
+  when: ufw_allowed_public_ports is defined
+
 - name: Set default policy
   ufw:
     state: enabled
