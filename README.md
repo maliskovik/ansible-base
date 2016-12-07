@@ -20,10 +20,7 @@ use some new port, should also add a UFW rule.
 
 * admin_accounts - list containins names of admin-type user accounts to be created
 > For each username specified, a directory with the same name must exist in the
-`roles/base/files/users`. and must contain `.ssh/id_rsa.pub` file with the users public key.
-
-
-
+location specified by the base_users_dirs variable. and must contain `.ssh/id_rsa.pub` file with the users public key.
 
 ## Optional variables:
 * user_accounts: list containing names of normal user acounts to be created.

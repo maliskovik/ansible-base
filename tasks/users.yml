@@ -33,7 +33,6 @@
   when: user_accounts is defined
 
 - name: Add admin authorized keys
-
   authorized_key:
       user: "{{ item }}"
       key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
