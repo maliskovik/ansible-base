@@ -11,8 +11,8 @@ Every host should include this role.
 * Installs and configures smart daemon to watch disk health status.
 * Configures ssh
 * Installs and configures UFW.
->Note: The UFW is restrictive y default, any role that configures a service to
-use some new port, should also add a UFW rule.
+>Note: The UFW is restrictive by default, any role that configures a service to
+use some new port, should also add an UFW rule.
 
 * Adds the specified users and their SSH keys.
 

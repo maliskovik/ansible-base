@@ -19,7 +19,7 @@
     port: "{{ item.port }}"
     proto: "{{ item.proto }}"
     rule: allow
-  with_items: "{{ ufw_allowed_public_ports }}"
+  with_items: "{{ ufw_allowed_public_ports|default(omit) }}"
   when: ufw_allowed_public_ports is defined
 
 - name: Set default policy
