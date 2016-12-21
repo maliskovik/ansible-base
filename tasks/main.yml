@@ -1,15 +1,22 @@
 ---
 # Base role tasks
 
-- name: Install Requirements
+- name: Install Requirements - Ubuntu
   apt:
     name: "{{ item }}"
     state: latest
     force: yes
     update_cache: yes
-  with_items:
-    - git
-    - python-mysqldb
+  with_items: "{{ base_dependencies_ubuntu }}"
+  when: ansible_os_family == "Debian"
+
+- name: Install Requirements - Archlinux
+  pacman:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items: "{{ base_dependencies_ubuntu }}"
+  when: ansible_os_family == "Archlinux"
 
 - include: base.yml
 - include: users.yml

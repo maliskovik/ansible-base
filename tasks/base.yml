@@ -13,11 +13,14 @@
       group: root
       mode: 0644
 
-- name: Gen locales
-  locale_gen:
-      name: "{{ item }}"
-      state: present
-  with_items: "{{ base_locales }}"
+- name: Enable locales
+  template:
+    src: enabled_locales
+    dest: /etc/locale.gen
+    mode: 0644
+    owner: root
+    group: root
+  notify: Generate locales
 
 - name: Set locale
   template:
@@ -28,10 +31,10 @@
       group: root
 
 - name: Set timezone
-  template:
-      src: timezone
-      dest: /etc/timezone
-      owner: root
-      group: root
-      mode: 0644
-  notify: Update timezone data
+  command: "timedatectl set-timezone {{ timezone }}"
+
+- name: Set motd
+  copy:
+    src: "{{ base_motd }}"
+    dest: /etc/motd
+  when: base_motd is defined

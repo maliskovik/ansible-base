@@ -1,12 +1,21 @@
 ---
 # Ufw tasks
-- name: Install ufw
+- name: Install ufw - Ubuntu
   apt:
     name: ufw
     state: latest
     force: yes
   notify:
   - Restart ufw
+  when: ansible_os_family == "Debian"
+
+- name: Install ufw
+  pacman:
+    name: ufw
+    state: latest
+  notify:
+  - Restart ufw
+  when: ansible_os_family == "Archlinux"
 
 - name: Allow SSH
   ufw:
@@ -21,6 +30,15 @@
     rule: allow
   with_items: "{{ ufw_allowed_public_ports|default(omit) }}"
   when: ufw_allowed_public_ports is defined
+
+- name: Allow local ports
+  ufw:
+    port: "{{ item.port }}"
+    proto: "{{ item.proto }}"
+    from: "{{ item.from }}"
+    rule: allow
+  with_items: "{{ ufw_allowed_local_ports|default(omit) }}"
+  when: ufw_allowed_local_ports is defined
 
 - name: Set default policy
   ufw:

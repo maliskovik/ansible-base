@@ -2,6 +2,10 @@
 
 Every host should include this role.
 
+## Supported distributions
+* Ubuntu
+* Archlinux
+
 ## What it does?
 * Sets hostname
 * Sets locales

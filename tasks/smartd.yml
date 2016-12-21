@@ -1,11 +1,18 @@
 ---
 #Configure smartd
 
-- name: Install smartmontools
+- name: Install smart tools - Ubuntu
   apt:
       name: smartmontools
       state: latest
       force: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install smart tools - Arch
+  pacman :
+      name: smartmontools
+      state: latest
+  when: ansible_os_family == "Archlinux"
 
 - name: Configure smartd
   copy:
@@ -23,3 +30,4 @@
       insertafter: EOF
       line: "start_smartd=yes"
   notify: Restart smartd
+  when: ansible_os_family == "Debian"

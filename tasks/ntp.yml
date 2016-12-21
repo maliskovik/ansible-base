@@ -1,12 +1,22 @@
 ---
 # Setup ntp
 
-- name: Install ntp
+- name: Install ntp - Ubuntu
   apt:
       name: ntp
       state: latest
       force: yes
   notify: Restart ntp
+  when: ansible_os_family == "Debian"
+
+- name: Install ntp - Arch
+  pacman :
+      name: ntp
+      state: latest
+  notify:
+    - Restart ntp
+    - Start ntp
+  when: ansible_os_family == "Archlinux"
 
 - name: Configure ntp
   template:
@@ -17,9 +27,3 @@
       src: "ntp_config"
       dest: "/etc/ntp.conf"
   notify: Restart ntp
-
-- name: Start ntp
-  service:
-    name: ntp
-    state: started
-    enabled: yes

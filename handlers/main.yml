@@ -2,6 +2,17 @@
 # base role handlers
 - name: Update timezone data
   command: dpkg-reconfigure --frontend noninteractive tzdata
+  when: ansible_os_family == "Debian"
+
+- name: Generate locales
+  command: locale-gen
+
+# Ntp handlers
+- name: Start ntp
+  service:
+    name: ntp
+    state: started
+    enabled: yes
 
 - name: Restart ntp
   service:
