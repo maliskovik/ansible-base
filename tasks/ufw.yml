@@ -9,7 +9,7 @@
   - Restart ufw
   when: ansible_os_family == "Debian"
 
-- name: Install ufw
+- name: Install ufw - Archlinux
   pacman:
     name: ufw
     state: latest
