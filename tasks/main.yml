@@ -15,7 +15,7 @@
     name: "{{ item }}"
     state: latest
     update_cache: yes
-  with_items: "{{ base_dependencies_ubuntu }}"
+  with_items: "{{ base_dependencies_arch }}"
   when: ansible_os_family == "Archlinux"
 
 - include: base.yml
