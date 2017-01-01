@@ -17,7 +17,8 @@ timezone: "Europe/Ljubljana"
 
 ssh_port: 22
 ssh_permit_root_login: "no"
-
+base_ssh_sftp_subsytem_path_arch: "/usr/lib/ssh/sftp-server"
+base_ssh_sftp_subsytem_path_ubuntu: "/usr/lib/openssh/sftp-server"
 hostfile_entries:
   - ip: ""
     name: ""
