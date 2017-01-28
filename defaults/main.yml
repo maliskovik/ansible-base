@@ -7,7 +7,7 @@ ntp_servers:
   - ntp2.arnes.si
 
 admin_mails:
-  - "devops@kendu.si"
+  - "a.lovrenc@gmail.co"
 
 base_locales:
   - "en_US.UTF-8"
