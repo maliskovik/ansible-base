@@ -29,7 +29,7 @@ IgnoreRhosts yes
 RhostsRSAAuthentication no
 HostbasedAuthentication no
 PermitEmptyPasswords no
-PasswordAuthentication no
+PasswordAuthentication {{ ssh_permit_password_authentication }}
 ChallengeResponseAuthentication no
 X11Forwarding yes
 X11DisplayOffset 10
