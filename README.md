@@ -41,6 +41,7 @@ present in the base_locales list.
 * ssh_port: ssh port to use.
 * ssh_permit_root_login: con be "yes", "no" or "without-password"
 * base_users_dirs: Path to the directory which contains homedirs for users with .ssh subdirectory containing the id_rsa.pub file.
+* ufw_allowed_public_ports: Ports to open
 
 ## Example variables
 
