@@ -10,7 +10,6 @@ Every host should include this role.
 * Sets hostname
 * Sets locales
 * Sets timezone
-* Installs and configures monit
 * Installs and configures ntp
 * Installs and configures smart daemon to watch disk health status.
 * Configures ssh
