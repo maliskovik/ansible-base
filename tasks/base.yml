@@ -38,3 +38,9 @@
     src: "{{ base_motd }}"
     dest: /etc/motd
   when: base_motd is defined
+
+- name: Set fstab
+  copy:
+    src: "{{ base_fstab }}"
+    dest: /etc/fstab
+  when: base_fstab is defined
