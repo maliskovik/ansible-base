@@ -10,6 +10,17 @@
   with_items: "{{ base_dependencies_ubuntu }}"
   when: ansible_os_family == "Debian"
 
+- name: Install Optional Requirements - Ubuntu
+  apt:
+    name: "{{ item }}"
+    state: latest
+    force: yes
+    update_cache: yes
+  with_items: "{{ base_optional_dependencies_ubuntu|default(omit) }}"
+  when:
+    - ansible_os_family == "Debian"
+    - base_optional_dependencies_ubuntu is defined
+
 - name: Install Requirements - Archlinux
   pacman:
     name: "{{ item }}"
@@ -17,6 +28,16 @@
     update_cache: yes
   with_items: "{{ base_dependencies_arch }}"
   when: ansible_os_family == "Archlinux"
+
+- name: Install Optional Requirements - Archlinux
+  pacman:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items: "{{ base_optional_dependencies_arch|default(omit) }}"
+  when:
+    - ansible_os_family == "Archlinux"
+    - base_optional_dependencies_arch is defined
 
 - include: base.yml
 - include: users.yml
