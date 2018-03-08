@@ -3,14 +3,14 @@
 
 - name: Add admin group
   group:
-      name: "{{ admin_group }}"
+      name: "{{ base_admin_group }}"
       state: present
       system: yes
 
 - name: Add admin group to sudo
   template:
       src: admin_group_passwordless_sudo
-      dest: /etc/sudoers.d/admin_group_passwordless_sudo
+      dest: /etc/sudoers.d/base_admin_group_passwordless_sudo
       owner: root
       group: root
       mode: 0400
@@ -20,7 +20,7 @@
       name: "{{ item }}"
       state: present
       shell: /bin/bash
-      groups: "{{ admin_group }}"
+      groups: "{{ base_admin_group }}"
   with_items: "{{ admin_accounts|default(omit) }}"
   when: admin_accounts is defined
 

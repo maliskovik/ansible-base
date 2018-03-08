@@ -18,6 +18,6 @@ disable monitor
 
 # Specify one or more NTP servers.
 
-{% for server in ntp_servers %}
+{% for server in base_ntp_servers %}
 server {{ server }} iburst
 {% endfor %}

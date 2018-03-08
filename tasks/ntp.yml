@@ -27,3 +27,12 @@
       src: "ntp_config"
       dest: "/etc/ntp.conf"
   notify: Restart ntp
+
+- name: Allow NTP
+  ufw:
+    port: 123
+    proto: udp
+    rule: allow
+    from_ip: "{{ item }}"
+  when: base_ntp_open
+  with_items: "{{ base_ntp_open_to_address|default(omit) }}"

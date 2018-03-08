@@ -29,18 +29,20 @@ location specified by the base_users_dirs variable. and must contain `.ssh/id_rs
 * user_accounts: list containing names of normal user acounts to be created.
 > Same requirements as with admin_accounts.
 
-* admin_group: name of the admin groupe - default `sudo`
+* base_admin_group: name of the admin groupe - default `sudo`
 * base_locales: list of locales that should be present on the host.
-* default_locale: default locale that should be used on the host. It must be
+* base_default_locale: default locale that should be used on the host. It must be
 present in the base_locales list.
-* admin_mails: list of admin email address that should recieve system mail.
-* ntp_servers: list of ntp servers to be used.
+* base_admin_mails: list of admin email address that should recieve system mail.
+* base_ntp_servers: list of ntp servers to be used.
 * timezone: Which timezone to use
 * hostfile_entries: A list of ip, name keypairs that will be added to the hosts file.
 * ssh_port: ssh port to use.
 * ssh_permit_root_login: con be "yes", "no" or "without-password"
 * base_users_dirs: Path to the directory which contains homedirs for users with .ssh subdirectory containing the id_rsa.pub file.
 * ufw_allowed_public_ports: Ports to open
+* base_ntp_open: Should ntp exposed
+* base_ntp_open_to_address: IP-s to be opened to
 
 ## Example variables
 
@@ -49,13 +51,13 @@ admin_accounts:
   - admin
 user_accounts:
   - test
-admin_group: "sudo"
+base_admin_group: "sudo"
 base_locales:
   - en_US.UTF-8
-default_locale: "en_US.UTF-8"
-admin_mails:
+base_default_locale: "en_US.UTF-8"
+base_admin_mails:
   - test@example.com
-ntp_servers:
+base_ntp_servers:
   - 8.8.8.8
   - 8.8.4.4
 timezone: "Europe/Berlin"

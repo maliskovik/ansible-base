@@ -1,18 +1,18 @@
 ---
 #Default variables
-admin_group: "sudo"
+base_admin_group: "sudo"
 
-ntp_servers:
+base_ntp_servers:
   - ntp1.arnes.si
   - ntp2.arnes.si
-
-admin_mails:
-  - "a.lovrenc@gmail.co"
+base_ntp_open: false
+base_admin_mails:
+  - "admin@example.com"
 
 base_locales:
   - "en_US.UTF-8"
 
-default_locale: "en_US.UTF-8"
+base_default_locale: "en_US.UTF-8"
 timezone: "Europe/Ljubljana"
 
 ssh_port: 22
