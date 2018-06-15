@@ -1,8 +1,9 @@
 # Static lookup table for hostnames.
-
-127.0.0.1   {{ inventory_hostname }} localhost
-::1         {{ inventory_hostname }} ip6-localhost
-
 {% for hostfile_entry in hostfile_entries %}
-{{ hostfile_entry.ip }}     {{ hostfile_entry.name }}
+{{ hostfile_entry.ip }} {% for name in hostfile_entry.names %} {{ name }}{% endfor %}
 {% endfor %}
+
+127.0.0.1   {{ inventory_hostname }}
+127.0.0.1   localhost localhost.localdomai
+::1         {{ inventory_hostname }}
+::1         ip6-localhost
