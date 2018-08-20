@@ -63,7 +63,8 @@ base_ntp_servers:
 timezone: "Europe/Berlin"
 hostfile_entries:
   - ip: ""
-    name: ""
+    names:
+      - ""
 ssh_port: "45632"
 ssh_permit_root_login: "no"
 

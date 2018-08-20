@@ -5,3 +5,4 @@ base_dependencies_ubuntu:
 base_dependencies_arch:
   - git
   - mysql-python
+  - cronie

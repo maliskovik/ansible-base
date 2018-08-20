@@ -7,6 +7,11 @@
       state: present
       system: yes
 
+- name: Make sudo conf.d directory
+  file:
+    path: /etc/sudoers.d
+    state: directory
+
 - name: Add admin group to sudo
   template:
       src: admin_group_passwordless_sudo
