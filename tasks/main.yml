@@ -44,4 +44,11 @@
 - include: ssh.yml
 - include: ufw.yml
 - include: ntp.yml
+  when: ansible_os_family == "ansible_distribution" and ansible_distribution_version <= "18.04"
+
+- include: chrony.yml
+  when:
+    - ansible_os_family == "ansible_distribution" and ansible_distribution_version >= "18.04"
+    - ansible_os_family == "Archlinux"
 - include: smartd.yml
+- include: network.yml

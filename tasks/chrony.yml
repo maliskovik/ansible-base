@@ -1,0 +1,40 @@
+---
+# Setup ntp
+
+- name: Install chrony - Ubuntu
+  apt:
+      name: "chrony"
+      state: latest
+      force: yes
+  notify:
+    - Restart chrony
+    - Start chrony
+  when: ansible_os_family == "ansible_distribution" and ansible_distribution_version >= "18.04"
+
+- name: Install chrony - Arch
+  pacman :
+      name: chrony
+      state: latest
+  notify:
+    - Restart chrony
+    - Start chrony
+  when: ansible_os_family == "Archlinux"
+
+- name: Configure chrony
+  template:
+      backup: yes
+      mode: 0644
+      owner: root
+      group: root
+      src: "chrony.conf"
+      dest: "/etc/chrony/chrony.conf"
+  notify: Restart chrony
+
+- name: Allow NTP
+  ufw:
+    port: 123
+    proto: udp
+    rule: allow
+    from_ip: "{{ item }}"
+  when: base_ntp_open
+  with_items: "{{ base_ntp_open_to_address|default(omit) }}"

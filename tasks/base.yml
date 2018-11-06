@@ -3,7 +3,7 @@
 
 - name: Set Hostname
   hostname:
-      name: "{{ inventory_hostname  }}"
+      name: "{{ base_hostname|default(inventory_hostname) }}"
 
 - name: Set Hosts base entry
   template:

@@ -1,0 +1,9 @@
+---
+
+- name: Configure network interfaces
+  template:
+    src: interfaces
+    dest: /etc/network/interfaces
+    owner: root
+    group: root
+  when: base_network_config is defined
