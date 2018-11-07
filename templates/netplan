@@ -1,0 +1,26 @@
+network:
+    version: 2
+    renderer: networkd
+    ethernets:
+{% for interface in base_network_config %}
+        {{ interface.name }}:
+{% if interface.mode is match "static" %}
+            dhcp4: false
+            addresses:
+{% for address in interface.addresses %}
+            - {{ address }}
+{% endfor %}
+            gateway4: {{ interface.gateway }}
+            nameservers:
+                addresses:
+{% for nameserver in interface.nameservers|default(base_nameservers) %}
+                - {{ nameserver }}
+{% endfor %}
+{% if interface.search|default(base_namesevers_search|default(omit)) %}
+                search:
+                - {{ interface.search|default(base_nameserver_search) }}
+{% endif %}
+{% elif interface.mode is match "dhcp" %}
+            dhcp4: true
+{% endif %}
+{% endfor %}

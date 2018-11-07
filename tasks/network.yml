@@ -1,9 +1,18 @@
 ---
 
+- name: Remove default network configs
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "/etc/netplan/01-netcfg.yaml"
+    - "/etc/netplan/50-cloud-init.yaml"
+    - "/etc/netplan/01-network-manager-all.yaml"
+
 - name: Configure network interfaces
   template:
-    src: interfaces
-    dest: /etc/network/interfaces
+    src: netplan
+    dest: /etc/netplan/01-ansible.yaml
     owner: root
     group: root
   when: base_network_config is defined

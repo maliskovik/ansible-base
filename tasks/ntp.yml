@@ -4,11 +4,11 @@
 
 - name: Install ntp - Ubuntu
   apt:
-      name: "ntpd"
+      name: "ntp"
       state: latest
       force: yes
   notify: Restart ntp
-  when: ansible_os_family == "ansible_distribution"
+  when: ansible_distribution == "Ubuntu"
 
 - name: Configure ntp
   template:

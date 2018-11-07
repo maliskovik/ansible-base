@@ -10,13 +10,13 @@
 # Ntp handlers
 - name: Start ntp
   service:
-    name: ntp
+    name: ntpd
     state: started
     enabled: yes
 
 - name: Restart ntp
   service:
-    name: ntp
+    name: ntpd
     state: restarted
     enabled: yes
 

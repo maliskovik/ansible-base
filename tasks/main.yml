@@ -3,52 +3,48 @@
 
 - name: Install Requirements - Ubuntu
   apt:
-    name: "{{ item }}"
+    name: "{{ base_dependencies_ubuntu|default(omit) }}"
     state: latest
     force: yes
     update_cache: yes
-  with_items: "{{ base_dependencies_ubuntu }}"
   when: ansible_os_family == "Debian"
 
 - name: Install Optional Requirements - Ubuntu
   apt:
-    name: "{{ item }}"
+    name: "{{ base_optional_dependencies_ubuntu|default(omit) }}"
     state: latest
     force: yes
     update_cache: yes
-  with_items: "{{ base_optional_dependencies_ubuntu|default(omit) }}"
   when:
-    - ansible_os_family == "Debian"
+    - ansible_lsb.id == "Ubuntu"
     - base_optional_dependencies_ubuntu is defined
 
 - name: Install Requirements - Archlinux
   pacman:
-    name: "{{ item }}"
+    name: "{{ base_dependencies_arch|default(omit) }}"
     state: latest
     update_cache: yes
-  with_items: "{{ base_dependencies_arch }}"
   when: ansible_os_family == "Archlinux"
 
 - name: Install Optional Requirements - Archlinux
   pacman:
-    name: "{{ item }}"
+    name: "{{ base_optional_dependencies_arch|default(omit) }}"
     state: latest
     update_cache: yes
-  with_items: "{{ base_optional_dependencies_arch|default(omit) }}"
   when:
     - ansible_os_family == "Archlinux"
     - base_optional_dependencies_arch is defined
 
-- include: base.yml
-- include: users.yml
-- include: ssh.yml
-- include: ufw.yml
-- include: ntp.yml
-  when: ansible_os_family == "ansible_distribution" and ansible_distribution_version <= "18.04"
+- include_tasks: base.yml
+- include_tasks: users.yml
+- include_tasks: ssh.yml
+- include_tasks: ufw.yml
+- include_tasks: ntp.yml
+  when: ansible_lsb.id == "Ubuntu" and ansible_lsb.major_release|int < 18
 
-- include: chrony.yml
-  when:
-    - ansible_os_family == "ansible_distribution" and ansible_distribution_version >= "18.04"
-    - ansible_os_family == "Archlinux"
-- include: smartd.yml
-- include: network.yml
+- include_tasks: chrony.yml
+  when: (ansible_lsb.id == "Ubuntu" and ansible_lsb.major_release|int >= 18) or
+        (ansible_os_family == "Archlinux")
+- include_tasks: smartd.yml
+- include_tasks: network.yml
+  when: ansible_lsb.id == "Ubuntu" and ansible_lsb.major_release|int >= 18

@@ -9,7 +9,7 @@
   notify:
     - Restart chrony
     - Start chrony
-  when: ansible_os_family == "ansible_distribution" and ansible_distribution_version >= "18.04"
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_version >= "18.04"
 
 - name: Install chrony - Arch
   pacman :

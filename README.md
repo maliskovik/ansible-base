@@ -25,6 +25,15 @@ use some new port, should also add an UFW rule.
 > For each username specified, a directory with the same name must exist in the
 location specified by the base_users_dirs variable. and must contain `.ssh/id_rsa.pub` file with the users public key.
 
+* base_network_config: A list of interfaces
+  - Interface:
+    - name: name of interface
+    - mode: static/dynamic
+    - addresses - list of IP addresses in IP/NETMASK format (192.168.1.1/24)
+    - gateway: IP of gateway
+* base_nameservers: list of DNS servers
+* base_nameserver_search: default domain to search
+
 ## Optional variables:
 * user_accounts: list containing names of normal user acounts to be created.
 > Same requirements as with admin_accounts.
