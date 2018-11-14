@@ -1,5 +1,12 @@
 ---
 # Basic cerver configuration
+- name: Enable hostname persistence
+  lineinfile:
+    backup: yes
+    dest: "/etc/cloud/cloud.cfg"
+    state: present
+    regexp: '^preserve_hostname:'
+    line: 'preserve_hostname: true'
 
 - name: Set Hostname
   hostname:

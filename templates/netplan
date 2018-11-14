@@ -22,5 +22,6 @@ network:
 {% endif %}
 {% elif interface.mode is match "dhcp" %}
             dhcp4: true
+            dhcp-identifier: mac
 {% endif %}
 {% endfor %}
