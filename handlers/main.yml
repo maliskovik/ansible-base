@@ -44,9 +44,16 @@
     enabled: yes
   when: ansible_os_family == "Archlinux"
 
-
 - name: Restart ufw
   service:
     name: ufw
+    state: restarted
+    enabled: yes
+
+# Chrony
+
+- name: Restart chrony
+  service:
+    name: chrony
     state: restarted
     enabled: yes
