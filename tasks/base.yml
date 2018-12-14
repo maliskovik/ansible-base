@@ -7,7 +7,9 @@
     state: present
     regexp: '^preserve_hostname:'
     line: 'preserve_hostname: true'
-
+  when:
+    - ansible_os_family == "Debian"
+    - ansible_lsb.id == "Ubuntu"
 - name: Set Hostname
   hostname:
       name: "{{ base_hostname|default(inventory_hostname) }}"
