@@ -1,6 +1,7 @@
 # Static lookup table for hostnames.
 {% for hostfile_entry in hostfile_entries %}
 {{ hostfile_entry.ip }} {% for name in hostfile_entry.names %} {{ name }}{% endfor %}
+
 {% endfor %}
 
 127.0.0.1   {{ inventory_hostname }}
