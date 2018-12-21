@@ -10,6 +10,8 @@
   when:
     - ansible_os_family == "Debian"
     - ansible_lsb.id == "Ubuntu"
+    - ansible_lsb.major_release|int >= 18)
+
 - name: Set Hostname
   hostname:
       name: "{{ base_hostname|default(inventory_hostname) }}"
