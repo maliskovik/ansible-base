@@ -1,5 +1,10 @@
 ---
 
+- name: Remove old network manager
+  apt:
+    name: ifupdown
+    state: absent
+
 - name: Remove default network configs
   file:
     path: "{{ item }}"
@@ -16,3 +21,5 @@
     owner: root
     group: root
   when: base_network_config is defined
+  notify:
+    - Netplan generate

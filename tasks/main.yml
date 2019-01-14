@@ -47,11 +47,11 @@
     - ansible_lsb.major_release|int < 18
 
 - include_tasks: chrony.yml
-  when: (ansible_os_family == "Debian" and ansible_lsb.id == "Ubuntu" and ansible_lsb.major_release|int >= 18) or
+  when: (ansible_os_family == "Debian" and ansible_lsb.id == "Ubuntu" and ansible_lsb.release is version('18.04', '>=')) or
         (ansible_os_family == "Archlinux")
 - include_tasks: smartd.yml
 - include_tasks: network.yml
   when:
     - ansible_os_family == "Debian"
     - ansible_lsb.id == "Ubuntu"
-    - ansible_lsb.major_release|int < 18
+    - ansible_lsb.release is version('18.04', '>=')

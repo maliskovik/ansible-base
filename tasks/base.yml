@@ -10,7 +10,7 @@
   when:
     - ansible_os_family == "Debian"
     - ansible_lsb.id == "Ubuntu"
-    - ansible_lsb.major_release|int >= 18
+    - ansible_lsb.release is version('18.04', '>=')
 
 - name: Set Hostname
   hostname:
