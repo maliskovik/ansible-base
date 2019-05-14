@@ -10,7 +10,12 @@ network:
 {% for address in interface.addresses %}
             - {{ address }}
 {% endfor %}
-            gateway4: {{ interface.gateway }}
+{% if interface.gateway4 is defined %}
+            gateway4: {{ interface.gateway4 }}
+{% endif %}
+{% if interface.gateway6 is defined %}
+            gateway6: {{ interface.gateway6 }}
+{% endif %}
             nameservers:
                 addresses:
 {% for nameserver in interface.nameservers|default(base_nameservers) %}
