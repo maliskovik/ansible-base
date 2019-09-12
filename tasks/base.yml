@@ -56,3 +56,17 @@
     src: "{{ base_fstab }}"
     dest: /etc/fstab
   when: base_fstab is defined
+
+- name: Set repositories
+  template:
+    src: sources
+    dest: /etc/apt/sources.list
+    mode: 0644
+    owner: root
+    group: root
+  when: ansible_lsb.id == "Ubuntu"
+
+- name: Update package list
+  apt:
+    update_cache: yes
+  when: ansible_lsb.id == "Ubuntu"
