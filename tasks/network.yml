@@ -23,3 +23,11 @@
   when: base_network_config is defined
   notify:
     - Netplan generate
+
+- name: Disable cloud network config
+  template:
+    src: netplan
+    dest: /etc/cloud/cloud.cfg.d/98-disable-network.cfg
+    owner: root
+    group: root
+  when: base_network_config is defined
