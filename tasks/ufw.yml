@@ -1,22 +1,13 @@
 ---
-# Ufw tasks
-- name: Install ufw - Ubuntu
-  apt:
-    name: ufw
-    state: latest
-    force: yes
-  notify:
-  - Restart ufw
+# Ufw install tasks
+- include: ufw_install_ubuntu.yml
   when: ansible_os_family == "Debian"
-
-- name: Install ufw - Archlinux
-  pacman:
-    name: ufw
-    state: latest
-  notify:
-  - Restart ufw
+- include: ufw_install_archlinux.yml
   when: ansible_os_family == "Archlinux"
+- include: ufw_install_centos.yml
+  when: ansible_os_family == "RedHat"
 
+# Ufw configuration
 - name: Allow SSH
   ufw:
     port: "{{ ssh_port }}"

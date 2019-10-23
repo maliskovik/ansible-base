@@ -1,0 +1,22 @@
+---
+- name: Enable EPEL repo
+  yum:
+    name: "epel-release"
+    state: latest
+    update_cache: yes
+
+- name: Install Requirements - Centos
+  yum:
+    name: "{{ base_dependencies_centos|default(omit) }}"
+    state: latest
+    update_cache: yes
+  when:
+    - base_dependencies_centos is defined
+
+- name: Install Optional Requirements - Centos
+  yum:
+    name: "{{ base_optional_dependencies_centos|default(omit) }}"
+    state: latest
+    update_cache: yes
+  when:
+    - base_optional_dependencies_centos is defined

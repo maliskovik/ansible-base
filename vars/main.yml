@@ -6,3 +6,6 @@ base_dependencies_arch:
   - git
   - mysql-python
   - cronie
+base_dependencies_centos:
+  - git
+  - MySQL-python.x86_64

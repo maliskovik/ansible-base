@@ -1,0 +1,8 @@
+---
+- name: Install ufw - Archlinux
+  pacman:
+    name: ufw
+    state: latest
+  notify:
+  - Restart ufw
+  when: ansible_os_family == "Archlinux"

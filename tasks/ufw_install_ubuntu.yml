@@ -1,0 +1,8 @@
+---
+- name: Install ufw - Ubuntu
+  apt:
+    name: ufw
+    state: latest
+    force: yes
+  notify:
+  - Restart ufw

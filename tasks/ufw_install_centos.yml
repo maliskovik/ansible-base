@@ -1,0 +1,17 @@
+---
+- name: Disable firewalld
+  service:
+    name: firewalld
+    state: stopped
+    enabled: no
+
+- name: Install ufw
+  yum:
+    state: present
+    name: ufw
+
+- name: Start ufw
+  service:
+    name: ufw
+    state: started
+    enabled: no

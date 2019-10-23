@@ -1,0 +1,30 @@
+- name: Set repositories
+  template:
+    src: sources
+    dest: /etc/apt/sources.list
+    mode: 0644
+    owner: root
+    group: root
+  when: ansible_lsb.id == "Ubuntu"
+
+- name: Update package list
+  apt:
+    update_cache: yes
+  when: ansible_lsb.id == "Ubuntu"
+
+- name: Install Requirements - Ubuntu
+  apt:
+    name: "{{ base_dependencies_ubuntu|default(omit) }}"
+    state: latest
+    force: yes
+    update_cache: yes
+
+- name: Install Optional Requirements - Ubuntu
+  apt:
+    name: "{{ base_optional_dependencies_ubuntu|default(omit) }}"
+    state: latest
+    force: yes
+    update_cache: yes
+  when:
+    - ansible_lsb.id == "Ubuntu"
+    - base_optional_dependencies_ubuntu is defined
