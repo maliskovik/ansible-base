@@ -14,20 +14,23 @@
     - "/etc/netplan/50-cloud-init.yaml"
     - "/etc/netplan/01-network-manager-all.yaml"
 
-- name: Configure network interfaces
+- name: Configure network interfaces - dynamic
   template:
     src: netplan
     dest: /etc/netplan/01-ansible.yaml
     owner: root
     group: root
-  when: base_network_config is defined
+  when: not base_network_config_static
   notify:
     - Netplan generate
 
-- name: Disable cloud network config
-  template:
-    src: netplan
-    dest: /etc/cloud/cloud.cfg.d/98-disable-network.cfg
+- name: Configure network interfaces - static
+  copy:
+    src: "{{ item }}"
+    dest: /etc/netplan/01-ansible.yaml
     owner: root
     group: root
-  when: base_network_config is defined
+  when: base_network_config_static
+  with_fileglob: "{{ conf_dir }}/etc/netplan/*"
+  notify:
+    - Netplan generate
