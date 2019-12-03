@@ -20,6 +20,12 @@
     state: restarted
     enabled: yes
 
+- name: Disable ntp
+  service:
+    name: ntpd
+    state: stopped
+    enabled: no
+
 # Smartd handlers
 - name: Restart smartd
   service:
@@ -61,6 +67,18 @@
 - name: Start chrony
   service:
     name: chrony
+    state: started
+    enabled: yes
+
+- name: Restart chronyd
+  service:
+    name: chronyd
+    state: restarted
+    enabled: yes
+
+- name: Start chronyd
+  service:
+    name: chronyd
     state: started
     enabled: yes
 

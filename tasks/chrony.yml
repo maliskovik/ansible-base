@@ -20,6 +20,21 @@
     - Start chrony
   when: ansible_os_family == "Archlinux"
 
+- name: Remove ntp - Centos
+  yum:
+    state: absent
+    name: ntp
+  when: ansible_os_family == "RedHat"
+
+- name: Install chrony - Centos
+  yum:
+    state: present
+    name: chrony
+  when: ansible_os_family == "RedHat"
+  notify:
+    - Restart chronyd
+    - Start chronyd
+
 - name: Configure chrony - ubuntu
   template:
       backup: yes
@@ -31,6 +46,17 @@
   notify: Restart chrony
   when:
     - ansible_distribution == "Ubuntu"
+
+- name: Configure chrony - Coentos
+  template:
+      backup: yes
+      mode: 0644
+      owner: root
+      group: root
+      src: "chrony.conf"
+      dest: "/etc/chrony.conf"
+  notify: Restart chronyd
+  when: ansible_os_family == "RedHat"
 
 - name: Configure chrony - arch
   template:

@@ -18,6 +18,7 @@
   ufw:
     port: "{{ item.port }}"
     proto: "{{ item.proto }}"
+    src: "{{ item.from|default('')}}"
     rule: allow
   with_items: "{{ ufw_allowed_public_ports|default(omit) }}"
   when: ufw_allowed_public_ports is defined
