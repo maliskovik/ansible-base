@@ -14,10 +14,17 @@
     proto: tcp
     rule: allow
 
+- name: Allow hosts
+  ufw:
+    src: "{{ item }}"
+    rule: allow
+  with_items: "{{ ufw_allowed_hosts|default(omit) }}"
+  when: ufw_allowed_hosts is defined
+
 - name: Allow public ports
   ufw:
     port: "{{ item.port }}"
-    proto: "{{ item.proto }}"
+    proto: "{{ item.proto| default('any') }}"
     src: "{{ item.from|default('')}}"
     rule: allow
   with_items: "{{ ufw_allowed_public_ports|default(omit) }}"
