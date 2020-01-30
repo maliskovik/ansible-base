@@ -65,3 +65,13 @@
     src: "{{ base_fstab }}"
     dest: /etc/fstab
   when: base_fstab is defined
+
+- name: Set aliases
+  template:
+      src: "{{ postfix_aliases_file|default(omit) }}"
+      dest: /etc/aliases
+      mode: 0644
+      owner: root
+      group: root
+  notify: New aliases
+  when: postfix_aliases_file is defined

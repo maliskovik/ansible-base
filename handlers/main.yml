@@ -7,6 +7,9 @@
 - name: Generate locales
   command: locale-gen
 
+- name: New aliases
+  command: newaliases
+
 # Ntp handlers
 - name: Start ntp
   service:
