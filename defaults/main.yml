@@ -20,6 +20,7 @@ ssh_permit_root_login: "no"
 ssh_permit_password_authentication: "no"
 base_ssh_sftp_subsytem_path_arch: "/usr/lib/ssh/sftp-server"
 base_ssh_sftp_subsytem_path_ubuntu: "/usr/lib/openssh/sftp-server"
+base_ssh_sftp_subsytem_path_centos: "/usr/libexec/openssh/sftp-server"
 hostfile_entries:
   - ip: ""
     names: ""

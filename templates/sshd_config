@@ -22,8 +22,6 @@ HostbasedAuthentication no
 PermitEmptyPasswords no
 PasswordAuthentication {{ ssh_permit_password_authentication }}
 ChallengeResponseAuthentication no
-X11Forwarding yes
-X11DisplayOffset 10
 PrintMotd no
 PrintLastLog yes
 TCPKeepAlive yes
@@ -31,6 +29,6 @@ TCPKeepAlive yes
 # Allow client to pass locale environment variables
 AcceptEnv LANG LC_*
 
-Subsystem sftp {% if ansible_os_family == "Archlinux" %}{{ base_ssh_sftp_subsytem_path_arch }}{% elif ansible_os_family == "Debian" %}{{ base_ssh_sftp_subsytem_path_ubuntu }}{% endif %}
+Subsystem sftp {% if ansible_os_family == "Archlinux" %}{{ base_ssh_sftp_subsytem_path_arch }}{% elif ansible_os_family == "Debian" %}{{ base_ssh_sftp_subsytem_path_ubuntu }}{% elif ansible_os_family == "RedHat" %}{{ base_ssh_sftp_subsytem_path_centos }}{% endif %}
 
 UsePAM yes
