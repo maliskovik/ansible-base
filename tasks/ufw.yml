@@ -42,7 +42,7 @@
 - name: Set default policy
   ufw:
     state: enabled
-    policy: deny
+    policy: {{ base_ufw_policy }}
     direction: incoming
 
 - name: Start ufw
