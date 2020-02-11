@@ -42,11 +42,12 @@
 - name: Set default policy
   ufw:
     state: enabled
-    policy: {{ base_ufw_policy }}
+    policy: "{{ base_ufw_policy }}"
     direction: incoming
 
 - name: Start ufw
   service:
     name: ufw
     state: started
-    enabled: yes
+    enabled: {{ base_ufw_enabled }}
+  when: base_ufw_enabled == "yes"
