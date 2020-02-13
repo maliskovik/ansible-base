@@ -49,5 +49,5 @@
   service:
     name: ufw
     state: started
-    enabled: {{ base_ufw_enabled }}
+    enabled: "{{ base_ufw_enabled }}"
   when: base_ufw_enabled == "yes"
