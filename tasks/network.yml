@@ -5,6 +5,11 @@
     name: ifupdown
     state: absent
 
+- name: Install netplan
+  apt:
+    name: netplan.io
+    state: present
+
 - name: Remove default network configs
   file:
     path: "{{ item }}"
