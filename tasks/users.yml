@@ -26,29 +26,62 @@
       state: present
       shell: /bin/bash
       groups: "{{ base_admin_group }}"
-  loop: "{{ [ admin_accounts|default(omit), admin_accounts_local ] | flatten(levels=1) }}"
-  when: admin_accounts is defined or admin_accounts_local is defined
+  loop: "{{ admin_accounts }}"
+  when: admin_accounts is defined
+
+- name: Add admin users local
+  user:
+      name: "{{ item }}"
+      state: present
+      shell: /bin/bash
+      groups: "{{ base_admin_group }}"
+  loop: "{{ admin_accounts_local }}"
+  when: admin_accounts_local is defined
 
 - name: Add normal users
   user:
       name: "{{ item }}"
       state: present
       shell: /bin/bash
-  loop: "{{ [ user_accounts|default(omit), user_accounts_local ] | flatten(levels=1) }}"
-  when: user_accounts is defined or user_accounts_local is defined
+  loop: "{{ user_accounts }}"
+  when: user_accounts is defined
+
+- name: Add normal users local
+  user:
+      name: "{{ item }}"
+      state: present
+      shell: /bin/bash
+  loop: "{{ user_accounts_local }}"
+  when: user_accounts_local is defined
 
 - name: Add admin authorized keys
   authorized_key:
       user: "{{ item }}"
       key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
       state: present
-  loop: "{{ [ admin_accounts|default(omit), admin_accounts_local ] | flatten(levels=1) }}"
-  when: admin_accounts is defined or admin_accounts_local is defined
+  loop: "{{ admin_accounts }}"
+  when: admin_accounts is defined
+
+- name: Add admin authorized keys local
+  authorized_key:
+      user: "{{ item }}"
+      key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
+      state: present
+  loop: "{{ admin_accounts_local }}"
+  when: admin_accounts_local is defined
 
 - name: Add user authorized keys
   authorized_key:
       user: "{{ item }}"
       key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
       state: present
-  loop: "{{ [ admin_accounts|default(omit), admin_accounts_local ] | flatten(levels=1) }}"
-  when: admin_accounts is defined or admin_accounts_local is defined
+  loop: "{{ user_accounts }}"
+  when: user_accounts is defined
+
+- name: Add user authorized keys local
+  authorized_key:
+      user: "{{ item }}"
+      key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
+      state: present
+  loop: "{{ admin_accounts_local }}"
+  when: admin_accounts_local is defined
