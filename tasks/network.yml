@@ -15,6 +15,7 @@
     path: "{{ item }}"
     state: absent
   with_items:
+    - "/etc/netplan/00-installer-config.yaml"
     - "/etc/netplan/01-netcfg.yaml"
     - "/etc/netplan/50-cloud-init.yaml"
     - "/etc/netplan/01-network-manager-all.yaml"
