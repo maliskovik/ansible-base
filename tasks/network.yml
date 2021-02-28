@@ -1,14 +1,32 @@
 ---
 
-- name: Remove old network manager
+- name: Remove old network manager - Ubuntu
   apt:
     name: ifupdown
     state: absent
+  when:
+    - ansible_distribution == "Ubuntu"
 
-- name: Install netplan
+- name: Install netplan - Ubuntu
   apt:
     name: netplan.io
     state: present
+  when:
+    - ansible_distribution == "Ubuntu"
+
+- name: Remove old network manager - Arch
+  pacman :
+    name: dhcpcd
+    state: absent
+  when:
+    - ansible_distribution == "Archlinux"
+
+- name: Install netplan - Arch
+  pacman :
+    name: netplan
+    state: present
+  when:
+    - ansible_distribution == "Archlinux"
 
 - name: Remove default network configs
   file:
@@ -19,6 +37,11 @@
     - "/etc/netplan/01-netcfg.yaml"
     - "/etc/netplan/50-cloud-init.yaml"
     - "/etc/netplan/01-network-manager-all.yaml"
+
+- name: Create netplan directory
+  file:
+    state: directory
+    path: "/etc/netplan"
 
 - name: Configure network interfaces - dynamic
   template:
