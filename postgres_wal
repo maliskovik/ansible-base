@@ -1,7 +1,0 @@
-# SSHFS
-sshfs_mounts:
-  - name: backup
-    src: "postgres_wal@hlev.cosylab.com:wal"
-    path: "/var/postgres/"
-    state: mounted
-    opts: ",uid=postgres,gid=postgres"

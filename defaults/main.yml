@@ -31,3 +31,4 @@ base_apt_repos:
 base_network_config_static: False
 base_ufw_policy: "deny"
 base_ufw_enabled: "yes"
+base_dns_search: "example.com"

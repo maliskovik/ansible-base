@@ -20,7 +20,7 @@ iface {{ network_interface.name }} inet {{ network_interface.mode }}
         dns-nameservers
 
 
-        dns-search cosylab.lan
+        dns-search {{ base_dns_search }}
 
 {% endfor %}
 {% else%}
