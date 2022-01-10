@@ -1,0 +1,19 @@
+---
+
+- name: Make scripts dir
+  file:
+    path: "{{ base_scripts_dir_dest }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Add custom scripts
+  template:
+    src: "{{ item }}"
+    dest: "{{ base_scripts_dir_dest }}"
+    owner: root
+    group: root
+    mode: 0755
+  when: base_scripts
+  with_fileglob: "{{ base_scripts_dir_src }}/*"

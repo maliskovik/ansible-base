@@ -1,13 +1,6 @@
 ---
 # Base role tasks
 
-# - include: dependencies_ubuntu.yml
-#   when: ansible_os_family == "Debian"
-# - include: dependencies_archlinux.yml
-#   when: ansible_os_family == "Archlinux"
-# - include: dependencies_centos.yml
-#   when: ansible_os_family == "RedHat"
-#
 - include_tasks: base.yml
 - include_tasks: users.yml
 - include_tasks: ssh.yml
@@ -26,3 +19,4 @@
 - include_tasks: network.yml
   when: (ansible_os_family == "Debian" and ansible_lsb.id == "Ubuntu" and ansible_lsb.release is version('18.04', '>=')) or
         (ansible_os_family == "Archlinux")
+- include_tasks: scripts.yml
