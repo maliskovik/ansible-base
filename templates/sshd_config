@@ -32,3 +32,14 @@ AcceptEnv LANG LC_*
 Subsystem sftp {% if ansible_os_family == "Archlinux" %}{{ base_ssh_sftp_subsytem_path_arch }}{% elif ansible_os_family == "Debian" %}{{ base_ssh_sftp_subsytem_path_ubuntu }}{% elif ansible_os_family == "RedHat" %}{{ base_ssh_sftp_subsytem_path_centos }}{% endif %}
 
 UsePAM yes
+
+{% if base_sftp_users is defined %}
+Match Group {{ base_sftp_group}}
+	ForceCommand internal-sftp
+	PasswordAuthentication {{ user.password_auth|default("no") }}
+	ChrootDirectory %h
+	PermitTunnel no
+	AllowAgentForwarding no
+	AllowTcpForwarding no
+	X11Forwarding no
+{% endif %}

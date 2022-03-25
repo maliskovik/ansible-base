@@ -20,3 +20,6 @@
   when: (ansible_os_family == "Debian" and ansible_lsb.id == "Ubuntu" and ansible_lsb.release is version('18.04', '>=')) or
         (ansible_os_family == "Archlinux")
 - include_tasks: scripts.yml
+- include_tasks: sftp.yml
+  when: base_sftp_users is defined
+  

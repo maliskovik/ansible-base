@@ -3,9 +3,9 @@
 
 - name: Add admin group
   group:
-      name: "{{ base_admin_group }}"
-      state: present
-      system: yes
+    name: "{{ base_admin_group }}"
+    state: present
+    system: yes
 
 - name: Make sudo conf.d directory
   file:
@@ -14,74 +14,83 @@
 
 - name: Add admin group to sudo
   template:
-      src: admin_group_passwordless_sudo
-      dest: /etc/sudoers.d/base_admin_group_passwordless_sudo
-      owner: root
-      group: root
-      mode: 0400
+    src: admin_group_passwordless_sudo
+    dest: /etc/sudoers.d/base_admin_group_passwordless_sudo
+    owner: root
+    group: root
+    mode: 0400
 
 - name: Add admin users
   user:
-      name: "{{ item }}"
-      state: present
-      shell: /bin/bash
-      groups: "{{ base_admin_group }}"
+    name: "{{ item }}"
+    state: present
+    shell: /bin/bash
+    groups: "{{ base_admin_group }}"
   loop: "{{ admin_accounts }}"
   when: admin_accounts is defined
 
 - name: Add admin users local
   user:
-      name: "{{ item }}"
-      state: present
-      shell: /bin/bash
-      groups: "{{ base_admin_group }}"
+    name: "{{ item }}"
+    state: present
+    shell: /bin/bash
+    groups: "{{ base_admin_group }}"
   loop: "{{ admin_accounts_local }}"
   when: admin_accounts_local is defined
 
 - name: Add normal users
   user:
-      name: "{{ item }}"
-      state: present
-      shell: /bin/bash
+    name: "{{ item }}"
+    state: present
+    shell: /bin/bash
   loop: "{{ user_accounts }}"
   when: user_accounts is defined
 
 - name: Add normal users local
   user:
-      name: "{{ item }}"
-      state: present
-      shell: /bin/bash
+    name: "{{ item }}"
+    state: present
+    shell: /bin/bash
   loop: "{{ user_accounts_local }}"
   when: user_accounts_local is defined
 
 - name: Add admin authorized keys
   authorized_key:
-      user: "{{ item }}"
-      key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
-      state: present
+    user: "{{ item }}"
+    key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
+    state: present
   loop: "{{ admin_accounts }}"
   when: admin_accounts is defined
 
 - name: Add admin authorized keys local
   authorized_key:
-      user: "{{ item }}"
-      key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
-      state: present
+    user: "{{ item }}"
+    key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
+    state: present
   loop: "{{ admin_accounts_local }}"
   when: admin_accounts_local is defined
 
 - name: Add user authorized keys
   authorized_key:
-      user: "{{ item }}"
-      key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
-      state: present
+    user: "{{ item }}"
+    key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
+    state: present
   loop: "{{ user_accounts }}"
   when: user_accounts is defined
 
-- name: Add user authorized keys local
+- name: Add local user authorized keys
   authorized_key:
-      user: "{{ item }}"
-      key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
-      state: present
+    user: "{{ item }}"
+    key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
+    state: present
   loop: "{{ admin_accounts_local }}"
   when: admin_accounts_local is defined
+
+- name: Install ntp - Ubuntu
+  apt:
+      name: "rush"
+      state: latest
+      force: yes
+  when:
+    - ansible_distribution == "Ubuntu"
+    - base_sftp_users is defined

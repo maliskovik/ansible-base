@@ -1,0 +1,49 @@
+---
+
+- name: Create SFTP group
+  group:
+    name: "{{ base_sftp_group }}"
+    state: present
+    
+- name: Create sftp user homedir
+  file:
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+    path: "{{ base_sftp_homedir }}"
+
+- name: Create sftp users
+  user:
+    name: "{{ item }}"
+    state: present
+    shell: /bin/false
+    groups: "{{ base_sftp_group }}"
+    append: yes
+    home: "{{ base_sftp_homedir }}/{{ item }}"
+  loop: "{{ base_sftp_users }}"
+
+- name: Add authorized keys for sftp users
+  authorized_key:
+    user: "{{ item }}"
+    key: "{{ lookup('file', base_sftp_users_dir+'/'+item+'/.ssh/id_rsa.pub') }}"
+    state: present
+  loop: "{{ base_sftp_users }}"
+
+- name: Set sftp homedir permissions
+  file:
+    state: directory
+    mode: 0755
+    owner: root
+    group: "{{ item }}"
+    path: "{{ base_sftp_homedir }}/{{ item }}"
+  loop: "{{ base_sftp_users }}"
+
+- name: SFTP User upload dir
+  file:
+    state: directory
+    mode: 0755
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    path: "{{ base_sftp_homedir }}/{{ item }}/upload"
+  loop: "{{ base_sftp_users }}"
