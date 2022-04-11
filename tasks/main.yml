@@ -2,6 +2,12 @@
 # Base role tasks
 
 - include_tasks: base.yml
+- include_tasks: dependencies_archlinux.yml
+  when: ansible_os_family == "Archlinux"
+- include_tasks: dependencies_centos.yml
+  when: ansible_os_family == "RedHat"
+- include_tasks: dependencies_ubuntu.yml
+  when: ansible_os_family == "Debian"
 - include_tasks: users.yml
 - include_tasks: ssh.yml
 - include_tasks: ufw.yml
@@ -22,4 +28,3 @@
 - include_tasks: scripts.yml
 - include_tasks: sftp.yml
   when: base_sftp_users is defined
-  

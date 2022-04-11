@@ -9,3 +9,4 @@ base_dependencies_arch:
 base_dependencies_centos:
   - git
   - MySQL-python.x86_64
+  - epel-release

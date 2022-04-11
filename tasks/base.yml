@@ -1,16 +1,4 @@
 ---
-# Basic cerver configuration
-# - name: Enable hostname persistence
-#   lineinfile:
-#     backup: yes
-#     dest: "/etc/cloud/cloud.cfg"
-#     state: present
-#     regexp: '^preserve_hostname:'
-#     line: 'preserve_hostname: true'
-#   when:
-#     - ansible_os_family == "Debian"
-#     - ansible_lsb.id == "Ubuntu"
-#     - ansible_lsb.release is version('18.04', '>=')
 
 - name: Remove cloud init
   apt:
