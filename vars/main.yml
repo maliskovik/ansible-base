@@ -1,7 +1,7 @@
 ---
 base_dependencies_ubuntu:
   - git
-  - python-mysqldb
+  - python3-mysqldb
 base_dependencies_arch:
   - git
   - mysql-python
