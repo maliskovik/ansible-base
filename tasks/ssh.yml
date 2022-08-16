@@ -24,3 +24,26 @@
   notify:
     - Restart ssh
     - Restart sshd
+
+- name: Create root SSH dir
+  file:
+    path: "{{ base_root_ssh_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+
+- name: Create root SSH keypair
+  community.crypto.openssh_keypair:
+    path: "{{ base_root_ssh_dir }}/id_rsa"
+    size: 4096
+    type: rsa
+    owner: root
+    group: root
+    regenerate: full_idempotence
+
+- name: Fetch public SSH key
+  fetch:
+    src: "{{ base_root_ssh_dir }}/id_rsa.pub"
+    dest: "{{ config_directory }}/ssh/id_rsa.pub"
+    flat: true
