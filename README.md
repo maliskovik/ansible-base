@@ -30,7 +30,7 @@ location specified by the base_users_dirs variable. and must contain `.ssh/id_rs
     - name: name of interface
     - mode: static/dynamic
     - addresses - list of IP addresses in IP/NETMASK format (192.168.1.1/24)
-    - gateway4: IP of gateway
+    - routes: list of routes - this has replaced gateway
 * base_nameservers: list of DNS servers
 * base_nameserver_search: default domain to search
 
