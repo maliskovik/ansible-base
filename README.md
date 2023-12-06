@@ -70,6 +70,9 @@ location specified by the base_users_dirs variable. and must contain `.ssh/id_rs
 * ufw_allowed_public_ports: List of ports to allow access to (globally)
 * ufw_allowed_local_ports: List of UFW entries - limited by IP and port
 * base_ufw_policy: UFW policy (default is deny)
+* base_ssh_port_open: Defaults to True. Should default allow for ssh/22 be added
+* base_ufw_public_IPs: Empty tring allows all IPs (IPv4 and IPv6) use "0.0.0.0/0" to restrict to IPv4
+
 ## Example variables
 
 ```

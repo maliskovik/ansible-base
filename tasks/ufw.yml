@@ -26,7 +26,7 @@
   ufw:
     port: "{{ item.port }}"
     proto: "{{ item.proto| default('any') }}"
-    from_ip: "{{ item.from|default('0.0.0.0/0')}}"
+    from_ip: "{{ item.from|default(base_ufw_public_IPs)}}"
     rule: allow
   with_items: "{{ ufw_allowed_public_ports|default(omit) }}"
   when: ufw_allowed_public_ports is defined
