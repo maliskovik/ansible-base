@@ -36,3 +36,4 @@ base_ufw_enabled: "yes"
 base_dns_search: "example.com"
 base_sftp_homedir: "/opt/sftp_home"
 base_sftp_group: sftponly
+base_ssh_port_open: True
