@@ -59,6 +59,7 @@
     dest: /etc/netplan/01-ansible.yaml
     owner: root
     group: root
+    mode: 0600
   when: base_network_config_static
   with_fileglob: "{{ conf_dir }}/etc/netplan/*"
   notify:
