@@ -59,6 +59,7 @@
     user: "{{ item }}"
     key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
     state: present
+    exclusive: true
   loop: "{{ admin_accounts }}"
   when: admin_accounts is defined
 
@@ -67,6 +68,7 @@
     user: "{{ item }}"
     key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
     state: present
+    exclusive: true
   loop: "{{ admin_accounts_local }}"
   when: admin_accounts_local is defined
 
@@ -75,6 +77,7 @@
     user: "{{ item }}"
     key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
     state: present
+    exclusive: true
   loop: "{{ user_accounts }}"
   when: user_accounts is defined
 
@@ -83,6 +86,7 @@
     user: "{{ item }}"
     key: "{{ lookup('file', base_users_dirs+'/'+item+'/.ssh/id_rsa.pub') }}"
     state: present
+    exclusive: true
   loop: "{{ admin_accounts_local }}"
   when: admin_accounts_local is defined
 
