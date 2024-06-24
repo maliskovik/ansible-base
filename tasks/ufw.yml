@@ -1,10 +1,10 @@
 ---
 # Ufw install tasks
-- include: ufw_install_ubuntu.yml
+- ansible.builtin.include_tasks: ufw_install_ubuntu.yml
   when: ansible_os_family == "Debian"
-- include: ufw_install_archlinux.yml
+- ansible.builtin.include_tasks: ufw_install_archlinux.yml
   when: ansible_os_family == "Archlinux"
-- include: ufw_install_centos.yml
+- ansible.builtin.include_tasks: ufw_install_centos.yml
   when: ansible_os_family == "RedHat"
 
 # Ufw configuration
