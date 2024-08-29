@@ -8,7 +8,7 @@ base_dependencies_arch:
   - cronie
 base_dependencies_centos:
   - git
-  - MySQL-python.x86_64
+  - python3-PyMySQL.noarch
   - epel-release
 
 base_root_ssh_dir: /root/.ssh
