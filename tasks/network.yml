@@ -49,6 +49,7 @@
     dest: /etc/netplan/01-ansible.yaml
     owner: root
     group: root
+    mode: 0600
   when: not base_network_config_static
   notify:
     - Netplan generate
