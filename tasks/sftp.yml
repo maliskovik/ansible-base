@@ -29,6 +29,7 @@
     key: "{{ lookup('file', item.pubkey|default(base_sftp_users_dir + '/' + item.name + '/.ssh/id_rsa.pub')) }}"
     state: present
   loop: "{{ base_sftp_users }}"
+  when: item.pubkey is defined
 
 - name: Set sftp homedir permissions
   file:

@@ -36,7 +36,7 @@ UsePAM yes
 {% if base_sftp_users is defined %}
 Match Group {{ base_sftp_group}}
 	ForceCommand internal-sftp
-	PasswordAuthentication {{ user.password_auth|default("no") }}
+	PasswordAuthentication {{ ssh_permit_password_authentication|default("no") }}
 	ChrootDirectory %h
 	PermitTunnel no
 	AllowAgentForwarding no
