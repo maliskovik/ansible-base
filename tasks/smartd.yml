@@ -3,31 +3,37 @@
 
 - name: Install smart tools - Ubuntu
   apt:
-      name: smartmontools
-      state: latest
-      force: yes
+    name: smartmontools
+    state: latest
+    force: yes
   when: ansible_os_family == "Debian"
 
 - name: Install smart tools - Arch
-  pacman :
-      name: smartmontools
-      state: latest
+  pacman:
+    name: smartmontools
+    state: latest
   when: ansible_os_family == "Archlinux"
+
+- name: Install smart tools - Redhat
+  dnf:
+    name: smartmontools
+    state: latest
+  when: ansible_os_family == "RedHat"
 
 - name: Configure smartd
   copy:
-      owner: root
-      group: root
-      src: "smartd.conf"
-      dest: "/etc/smartd.conf"
+    owner: root
+    group: root
+    src: "smartd.conf"
+    dest: "/etc/smartd.conf"
   notify: Restart smartd
 
 - name: Enable smartd
   lineinfile:
-      backup: yes
-      dest: "/etc/default/smartmontools"
-      state: present
-      insertafter: EOF
-      line: "start_smartd=yes"
+    backup: yes
+    dest: "/etc/default/smartmontools"
+    state: present
+    insertafter: EOF
+    line: "start_smartd=yes"
   notify: Restart smartd
   when: ansible_os_family == "Debian"
