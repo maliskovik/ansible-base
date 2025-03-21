@@ -1,6 +1,6 @@
 network:
     version: 2
-    renderer: networkd
+    renderer: {{ base_netplan_renderer|default('networkd') }}
     ethernets:
 {% for interface in base_network_config %}
         {{ interface.name }}:

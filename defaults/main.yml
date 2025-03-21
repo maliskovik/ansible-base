@@ -31,10 +31,11 @@ base_apt_repos:
   - "deb http://archive.ubuntu.com/ubuntu {{ ansible_lsb.codename }}-security main universe"
   - "deb http://archive.ubuntu.com/ubuntu {{ ansible_lsb.codename }}-updates main universe"
 base_network_config_static: False
+base_netplan_renderer: networkd
 base_ufw_policy: "deny"
 base_ufw_enabled: "yes"
 base_dns_search: "example.com"
 base_sftp_homedir: "/opt/sftp_home"
 base_sftp_group: sftponly
 base_ssh_port_open: True
-base_ufw_public_IPs: ''
+base_ufw_public_IPs: ""
