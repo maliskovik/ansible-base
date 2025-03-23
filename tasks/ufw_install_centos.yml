@@ -9,3 +9,10 @@
   yum:
     state: present
     name: ufw
+
+- name: Start ufw
+  service:
+    name: ufw
+    state: started
+    enabled: "{{ base_ufw_enabled }}"
+  when: base_ufw_enabled == "yes"

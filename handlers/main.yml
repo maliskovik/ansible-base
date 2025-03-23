@@ -32,7 +32,7 @@
 # Smartd handlers
 - name: Restart smartd
   service:
-    name: smartmontools
+    name: smartd
     state: restarted
     enabled: yes
 
