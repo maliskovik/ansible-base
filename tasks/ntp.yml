@@ -1,23 +1,22 @@
 ---
 # Setup ntp
 
-
 - name: Install ntp - Ubuntu
   apt:
-      name: "ntp"
-      state: latest
-      force: yes
+    name: "ntp"
+    state: latest
+    force: yes
   notify: Restart ntp
   when: ansible_distribution == "Ubuntu"
 
 - name: Configure ntp
   template:
-      backup: yes
-      mode: 0644
-      owner: root
-      group: root
-      src: "ntp_config"
-      dest: "/etc/ntp.conf"
+    backup: yes
+    mode: 0644
+    owner: root
+    group: root
+    src: "ntp_config"
+    dest: "/etc/ntp.conf"
   notify: Restart ntp
 
 - name: Allow NTP
@@ -27,4 +26,4 @@
     rule: allow
     from_ip: "{{ item }}"
   when: base_ntp_open
-  with_items: "{{ base_ntp_open_to_address|default(omit) }}"
+  with_items: "{{ base_ntp_open_to_address|default('') }}"

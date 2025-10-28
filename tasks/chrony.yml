@@ -3,18 +3,18 @@
 
 - name: Install chrony - Ubuntu
   apt:
-      name: "chrony"
-      state: latest
-      force: yes
+    name: "chrony"
+    state: latest
+    force: yes
   notify:
     - Restart chrony
     - Start chrony
   when: ansible_distribution == "Ubuntu" and ansible_distribution_version >= "18.04"
 
 - name: Install chrony - Arch
-  pacman :
-      name: chrony
-      state: latest
+  pacman:
+    name: chrony
+    state: latest
   notify:
     - Restart chrony
     - Start chrony
@@ -37,35 +37,35 @@
 
 - name: Configure chrony - ubuntu
   template:
-      backup: yes
-      mode: 0644
-      owner: root
-      group: root
-      src: "chrony.conf"
-      dest: "/etc/chrony/chrony.conf"
+    backup: yes
+    mode: 0644
+    owner: root
+    group: root
+    src: "chrony.conf"
+    dest: "/etc/chrony/chrony.conf"
   notify: Restart chrony
   when:
     - ansible_distribution == "Ubuntu"
 
 - name: Configure chrony - Coentos
   template:
-      backup: yes
-      mode: 0644
-      owner: root
-      group: root
-      src: "chrony.conf"
-      dest: "/etc/chrony.conf"
+    backup: yes
+    mode: 0644
+    owner: root
+    group: root
+    src: "chrony.conf"
+    dest: "/etc/chrony.conf"
   notify: Restart chronyd
   when: ansible_os_family == "RedHat"
 
 - name: Configure chrony - arch
   template:
-      backup: yes
-      mode: 0644
-      owner: root
-      group: root
-      src: "chrony.conf"
-      dest: "/etc/chrony.conf"
+    backup: yes
+    mode: 0644
+    owner: root
+    group: root
+    src: "chrony.conf"
+    dest: "/etc/chrony.conf"
   notify: Restart chrony
   when:
     - ansible_os_family == "Archlinux"
@@ -77,4 +77,4 @@
     rule: allow
     from_ip: "{{ item }}"
   when: base_ntp_open
-  with_items: "{{ base_ntp_open_to_address|default(omit) }}"
+  with_items: "{{ base_ntp_open_to_address|default('') }}"

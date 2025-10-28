@@ -1,5 +1,4 @@
 ---
-
 - name: Remove cloud init
   apt:
     name: cloud-init
@@ -11,15 +10,15 @@
 
 - name: Set Hostname
   hostname:
-      name: "{{ base_hostname|default(inventory_hostname) }}"
+    name: "{{ base_hostname|default(inventory_hostname) }}"
 
 - name: Set Hosts base entry
   template:
-      dest: /etc/hosts
-      src: hosts_file
-      owner: root
-      group: root
-      mode: 0644
+    dest: /etc/hosts
+    src: hosts_file
+    owner: root
+    group: root
+    mode: 0644
 
 - name: Enable locales
   template:
@@ -32,11 +31,11 @@
 
 - name: Set locale
   template:
-      src: default_locale
-      dest: /etc/default/locale
-      mode: 0644
-      owner: root
-      group: root
+    src: default_locale
+    dest: /etc/default/locale
+    mode: 0644
+    owner: root
+    group: root
 
 - name: Set timezone
   timezone:
@@ -56,10 +55,10 @@
 
 - name: Set aliases
   template:
-      src: "{{ postfix_aliases_file|default(omit) }}"
-      dest: /etc/aliases
-      mode: 0644
-      owner: root
-      group: root
+    src: "{{ postfix_aliases_file|default('') }}"
+    dest: /etc/aliases
+    mode: 0644
+    owner: root
+    group: root
   notify: New aliases
   when: postfix_aliases_file is defined

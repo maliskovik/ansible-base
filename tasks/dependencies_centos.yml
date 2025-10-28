@@ -7,7 +7,7 @@
 
 - name: Install Requirements - Centos
   yum:
-    name: "{{ base_dependencies_centos|default(omit) }}"
+    name: "{{ base_dependencies_centos|default('') }}"
     state: latest
     update_cache: yes
   when:
@@ -15,7 +15,7 @@
 
 - name: Install Optional Requirements - Centos
   yum:
-    name: "{{ base_optional_dependencies_centos|default(omit) }}"
+    name: "{{ base_optional_dependencies_centos|default('') }}"
     state: latest
     update_cache: yes
   when:

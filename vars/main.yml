@@ -4,7 +4,7 @@ base_dependencies_ubuntu:
   - python3-mysqldb
 base_dependencies_arch:
   - git
-  - mysql-python
+  - python-mysqlclient
   - cronie
 base_dependencies_centos:
   - git

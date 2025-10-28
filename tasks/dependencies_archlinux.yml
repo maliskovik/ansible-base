@@ -1,12 +1,12 @@
 - name: Install Requirements - Archlinux
   pacman:
-    name: "{{ base_dependencies_arch|default(omit) }}"
+    name: "{{ base_dependencies_arch|default('') }}"
     state: latest
     update_cache: yes
 
 - name: Install Optional Requirements - Archlinux
   pacman:
-    name: "{{ base_optional_dependencies_arch|default(omit) }}"
+    name: "{{ base_optional_dependencies_arch|default('') }}"
     state: latest
     update_cache: yes
   when:

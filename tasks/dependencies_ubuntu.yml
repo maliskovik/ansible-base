@@ -14,14 +14,14 @@
 
 - name: Install Requirements - Ubuntu
   apt:
-    name: "{{ base_dependencies_ubuntu|default(omit) }}"
+    name: "{{ base_dependencies_ubuntu|default('') }}"
     state: latest
     force: yes
     update_cache: yes
 
 - name: Install Optional Requirements - Ubuntu
   apt:
-    name: "{{ base_optional_dependencies_ubuntu|default(omit) }}"
+    name: "{{ base_optional_dependencies_ubuntu|default('') }}"
     state: latest
     force: yes
     update_cache: yes

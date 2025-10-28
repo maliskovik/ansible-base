@@ -24,7 +24,7 @@ network:
 {% endfor %}
 {% if interface.search|default(base_namesevers_search|default(false)) %}
                 search:
-                - {{ interface.search|default(base_nameserver_search|default(omit)) }}
+                - {{ interface.search|default(base_nameserver_search|default('')) }}
 {% endif %}
 {% elif interface.mode is match "dhcp" %}
             dhcp4: true

@@ -14,12 +14,12 @@
     proto: tcp
     rule: allow
   when: base_ssh_port_open
-  
+
 - name: Allow hosts
   ufw:
     src: "{{ item }}"
     rule: allow
-  with_items: "{{ ufw_allowed_hosts|default(omit) }}"
+  with_items: "{{ ufw_allowed_hosts|default('') }}"
   when: ufw_allowed_hosts is defined
 
 - name: Allow public ports
@@ -28,7 +28,7 @@
     proto: "{{ item.proto| default('any') }}"
     from_ip: "{{ item.from|default(base_ufw_public_IPs)}}"
     rule: allow
-  with_items: "{{ ufw_allowed_public_ports|default(omit) }}"
+  with_items: "{{ ufw_allowed_public_ports|default('') }}"
   when: ufw_allowed_public_ports is defined
 
 - name: Allow local ports
@@ -37,7 +37,7 @@
     proto: "{{ item.proto }}"
     from_ip: "{{ item.from }}"
     rule: allow
-  with_items: "{{ ufw_allowed_local_ports|default(omit) }}"
+  with_items: "{{ ufw_allowed_local_ports|default('') }}"
   when: ufw_allowed_local_ports is defined
 
 - name: Set default policy
