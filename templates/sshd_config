@@ -28,7 +28,7 @@ TCPKeepAlive yes
 # Allow client to pass locale environment variables
 AcceptEnv LANG LC_*
 
-Subsystem sftp {% if ansible_os_family == "Archlinux" %}{{ base_ssh_sftp_subsytem_path_arch }}{% elif ansible_os_family == "Debian" %}{{ base_ssh_sftp_subsytem_path_ubuntu }}{% elif ansible_os_family == "RedHat" %}{{ base_ssh_sftp_subsytem_path_centos }}{% endif %}
+Subsystem sftp {% if ansible_facts["os_family"] == "Archlinux" %}{{ base_ssh_sftp_subsytem_path_arch }}{% elif ansible_facts["os_family"] == "Debian" %}{{ base_ssh_sftp_subsytem_path_ubuntu }}{% elif ansible_facts["os_family"] == "RedHat" %}{{ base_ssh_sftp_subsytem_path_centos }}{% endif %}
 
 UsePAM yes
 

@@ -6,13 +6,13 @@
       name: "openssh-server"
       state: latest
       force: yes
-  when: ansible_os_family == "Debian"
+  when: ansible_facts["os_family"] == "Debian"
 
 - name: Install ssh - Archlinux
   pacman:
       name: "openssh"
       state: latest
-  when: ansible_os_family == "Archlinux"
+  when: ansible_facts["os_family"] == "Archlinux"
 
 - name: Configure ssh
   template:

@@ -1,67 +1,19 @@
 ---
-
-- name: Remove old network manager - Ubuntu
-  apt:
-    name: ifupdown
-    state: absent
+- include_tasks: network_netplan_ubuntu.yml
   when:
-    - ansible_distribution == "Ubuntu"
+    - ansible_facts["distribution"] == "Ubuntu"
+    - base_network_manager == "netplan"
 
-- name: Install netplan - Ubuntu
-  apt:
-    name: netplan.io
-    state: present
+- include_tasks: network_netplan_arch.yml
   when:
-    - ansible_distribution == "Ubuntu"
+    - ansible_facts["distribution"] == "Archlinux"
+    - base_network_manager == "netplan"
 
-- name: Remove old network manager - Arch
-  pacman :
-    name: dhcpcd
-    state: absent
+- include_tasks: network_configure_netplan.yml
   when:
-    - ansible_distribution == "Archlinux"
+    - base_network_manager == "netplan"
 
-- name: Install netplan - Arch
-  pacman :
-    name: netplan
-    state: present
+- include_tasks: network_systemd_arch.yml
   when:
-    - ansible_distribution == "Archlinux"
-
-- name: Remove default network configs
-  file:
-    path: "{{ item }}"
-    state: absent
-  with_items:
-    - "/etc/netplan/00-installer-config.yaml"
-    - "/etc/netplan/01-netcfg.yaml"
-    - "/etc/netplan/50-cloud-init.yaml"
-    - "/etc/netplan/01-network-manager-all.yaml"
-
-- name: Create netplan directory
-  file:
-    state: directory
-    path: "/etc/netplan"
-
-- name: Configure network interfaces - dynamic
-  template:
-    src: netplan
-    dest: /etc/netplan/01-ansible.yaml
-    owner: root
-    group: root
-    mode: 0600
-  when: not base_network_config_static
-  notify:
-    - Netplan generate
-
-- name: Configure network interfaces - static
-  copy:
-    src: "{{ item }}"
-    dest: /etc/netplan/01-ansible.yaml
-    owner: root
-    group: root
-    mode: 0600
-  when: base_network_config_static
-  with_fileglob: "{{ conf_dir }}/etc/netplan/*"
-  notify:
-    - Netplan generate
+    - ansible_facts["distribution"] == "Archlinux"
+    - base_network_manager == "systemd"

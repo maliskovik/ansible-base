@@ -5,12 +5,12 @@
     mode: 0644
     owner: root
     group: root
-  when: ansible_lsb.id == "Ubuntu"
+  when: ansible_facts["lsb.id"] == "Ubuntu"
 
 - name: Update package list
   apt:
     update_cache: yes
-  when: ansible_lsb.id == "Ubuntu"
+  when: ansible_facts["lsb.id"] == "Ubuntu"
 
 - name: Install Requirements - Ubuntu
   apt:
@@ -26,5 +26,5 @@
     force: yes
     update_cache: yes
   when:
-    - ansible_lsb.id == "Ubuntu"
+    - ansible_facts["lsb.id"] == "Ubuntu"
     - base_optional_dependencies_ubuntu is defined

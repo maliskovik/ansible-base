@@ -9,7 +9,7 @@
   notify:
     - Restart chrony
     - Start chrony
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_version >= "18.04"
+  when: ansible_facts["distribution"] == "Ubuntu" and ansible_facts["distribution_version"] >= "18.04"
 
 - name: Install chrony - Arch
   pacman:
@@ -18,19 +18,19 @@
   notify:
     - Restart chrony
     - Start chrony
-  when: ansible_os_family == "Archlinux"
+  when: ansible_facts["os_family"] == "Archlinux"
 
 - name: Remove ntp - Centos
   yum:
     state: absent
     name: ntp
-  when: ansible_os_family == "RedHat"
+  when: ansible_facts["os_family"] == "RedHat"
 
 - name: Install chrony - Centos
   yum:
     state: present
     name: chrony
-  when: ansible_os_family == "RedHat"
+  when: ansible_facts["os_family"] == "RedHat"
   notify:
     - Restart chronyd
     - Start chronyd
@@ -45,7 +45,7 @@
     dest: "/etc/chrony/chrony.conf"
   notify: Restart chrony
   when:
-    - ansible_distribution == "Ubuntu"
+    - ansible_facts["distribution"] == "Ubuntu"
 
 - name: Configure chrony - Coentos
   template:
@@ -56,7 +56,7 @@
     src: "chrony.conf"
     dest: "/etc/chrony.conf"
   notify: Restart chronyd
-  when: ansible_os_family == "RedHat"
+  when: ansible_facts["os_family"] == "RedHat"
 
 - name: Configure chrony - arch
   template:
@@ -68,7 +68,7 @@
     dest: "/etc/chrony.conf"
   notify: Restart chrony
   when:
-    - ansible_os_family == "Archlinux"
+    - ansible_facts["os_family"] == "Archlinux"
 
 - name: Allow NTP
   ufw:

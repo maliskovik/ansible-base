@@ -4,5 +4,5 @@
     name: ufw
     state: latest
   notify:
-  - Restart ufw
-  when: ansible_os_family == "Archlinux"
+    - Restart ufw
+  when: ansible_facts["os_family"] == "Archlinux"

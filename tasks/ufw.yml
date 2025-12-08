@@ -1,11 +1,11 @@
 ---
 # Ufw install tasks
 - ansible.builtin.include_tasks: ufw_install_ubuntu.yml
-  when: ansible_os_family == "Debian"
+  when: ansible_facts["os_family"] == "Debian"
 - ansible.builtin.include_tasks: ufw_install_archlinux.yml
-  when: ansible_os_family == "Archlinux"
+  when: ansible_facts["os_family"] == "Archlinux"
 - ansible.builtin.include_tasks: ufw_install_centos.yml
-  when: ansible_os_family == "RedHat"
+  when: ansible_facts["os_family"] == "RedHat"
 
 # Ufw configuration
 - name: Allow SSH

@@ -1,0 +1,27 @@
+- name: Remove old network manager - Arch
+  pacman:
+    name: dhcpcd
+    state: absent
+
+- name: Remove netplan - Arch
+  pacman:
+    name: netplan
+    state: absent
+
+- name: Configure DHCP
+  template:
+    src: systemd_networkd_dhcp_example
+    dest: "/etc/systemd/network/01_ansible_config.network"
+  when: not base_network_config_static
+
+- name: Configure static
+  template:
+    src: "{{ base_network_config_static }}"
+    dest: "/etc/systemd/network/01_ansible_config.network"
+  when: base_network_config_static
+
+- name: Enable systemd-networkd
+  service:
+    name: systemd-networkd.service
+    state: started
+    enabled: yes

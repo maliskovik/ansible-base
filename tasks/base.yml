@@ -4,9 +4,9 @@
     name: cloud-init
     state: absent
   when:
-    - ansible_os_family == "Debian"
-    - ansible_lsb.id == "Ubuntu"
-    - ansible_lsb.release is version('18.04', '>=')
+    - ansible_facts["os_family"] == "Debian"
+    - ansible_facts["lsb.id"] == "Ubuntu"
+    - ansible_facts["lsb.release"] is version('18.04', '>=')
 
 - name: Set Hostname
   hostname:

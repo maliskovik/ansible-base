@@ -6,19 +6,19 @@
     name: smartmontools
     state: latest
     force: yes
-  when: ansible_os_family == "Debian"
+  when: ansible_facts["os_family"] == "Debian"
 
 - name: Install smart tools - Arch
   pacman:
     name: smartmontools
     state: latest
-  when: ansible_os_family == "Archlinux"
+  when: ansible_facts["os_family"] == "Archlinux"
 
 - name: Install smart tools - Redhat
   dnf:
     name: smartmontools
     state: latest
-  when: ansible_os_family == "RedHat"
+  when: ansible_facts["os_family"] == "RedHat"
 
 - name: Configure smartd
   copy:
@@ -36,4 +36,4 @@
     insertafter: EOF
     line: "start_smartd=yes"
   notify: Restart smartd
-  when: ansible_os_family == "Debian"
+  when: ansible_facts["os_family"] == "Debian"

@@ -7,7 +7,7 @@
     state: latest
     force: yes
   notify: Restart ntp
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_facts["distribution"] == "Ubuntu"
 
 - name: Configure ntp
   template:

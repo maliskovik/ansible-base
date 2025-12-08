@@ -1,0 +1,9 @@
+- name: Remove old network manager - Ubuntu
+  apt:
+    name: ifupdown
+    state: absent
+
+- name: Install netplan - Ubuntu
+  apt:
+    name: netplan.io
+    state: present

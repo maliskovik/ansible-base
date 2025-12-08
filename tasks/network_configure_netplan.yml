@@ -1,0 +1,40 @@
+- name: Remove default network configs
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "/etc/netplan/00-installer-config.yaml"
+    - "/etc/netplan/01-netcfg.yaml"
+    - "/etc/netplan/50-cloud-init.yaml"
+    - "/etc/netplan/01-network-manager-all.yaml"
+
+    - ansible_facts["distribution"] == "Archlinux"
+    - network_manager == "netplan"
+
+- name: Create netplan directory
+  file:
+    state: directory
+    path: "/etc/netplan"
+
+- name: Configure network interfaces - dynamic
+  template:
+    src: netplan
+    dest: /etc/netplan/01-ansible.yaml
+    owner: root
+    group: root
+    mode: 0600
+  when: not base_network_config_static
+  notify:
+    - Netplan generate
+
+- name: Configure network interfaces - static
+  copy:
+    src: "{{ item }}"
+    dest: /etc/netplan/01-ansible.yaml
+    owner: root
+    group: root
+    mode: 0600
+  when: base_network_config_static
+  with_fileglob: "{{ conf_dir }}/etc/netplan/*"
+  notify:
+    - Netplan generate

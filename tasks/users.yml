@@ -92,9 +92,9 @@
 
 - name: Install ntp - Ubuntu
   apt:
-      name: "rush"
-      state: latest
-      force: yes
+    name: "rush"
+    state: latest
+    force: yes
   when:
-    - ansible_distribution == "Ubuntu"
+    - ansible_facts["distribution"] == "Ubuntu"
     - base_sftp_users is defined
