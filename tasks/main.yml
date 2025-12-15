@@ -17,18 +17,18 @@
 - include_tasks: ntp.yml
   when:
     - ansible_facts["os_family"] == "Debian"
-    - ansible_facts["lsb.id"] == "Ubuntu"
-    - ansible_facts["lsb.major_release"]|int < 18
+    - ansible_facts["lsb"]["id"] == "Ubuntu"
+    - ansible_facts["lsb"]["major_release"]|int < 18
 
 - include_tasks: chrony.yml
   when:
-    (ansible_facts["os_family"] == "Debian" and ansible_facts["lsb.id"] == "Ubuntu" and ansible_facts["lsb.release"] is version('18.04', '>=')) or
+    (ansible_facts["os_family"] == "Debian" and ansible_facts["lsb"]["id"] == "Ubuntu" and ansible_facts["lsb"]["release"] is version('18.04', '>=')) or
     (ansible_facts["os_family"] == "Archlinux") or
     (ansible_facts["os_family"] == "RedHat")
 - include_tasks: smartd.yml
 - include_tasks: network.yml
   when:
-    (ansible_facts["os_family"] == "Debian" and ansible_facts["lsb.id"] == "Ubuntu" and ansible_facts["lsb.release"] is version('18.04', '>=')) or
+    (ansible_facts["os_family"] == "Debian" and ansible_facts["lsb"]["id"] == "Ubuntu" and ansible_facts["lsb"]["release"] is version('18.04', '>=')) or
     (ansible_facts["os_family"] == "Archlinux")
 - include_tasks: scripts.yml
 - include_tasks: sftp.yml
