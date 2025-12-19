@@ -10,5 +10,6 @@ base_dependencies_centos:
   - git
   - python3-PyMySQL.noarch
   - epel-release
+  - openssl
 
 base_root_ssh_dir: /root/.ssh
