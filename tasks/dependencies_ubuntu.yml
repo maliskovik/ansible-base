@@ -28,3 +28,8 @@
   when:
     - ansible_facts["lsb"]["id"] == "Ubuntu"
     - base_optional_dependencies_ubuntu is defined
+
+- name: Disable unattended updates
+  apt:
+    state: absent
+    name: unattended-upgrades
